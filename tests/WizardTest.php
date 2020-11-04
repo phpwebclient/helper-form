@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Webclient\Helper\Form;
 
-use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
+use Stuff\Webclient\Helper\Form\HttpFactory;
 use Webclient\Helper\Form\Form;
 use Webclient\Helper\Form\Wizard;
 
@@ -19,7 +19,7 @@ class WizardTest extends TestCase
      */
     public function testCreateForm(string $method, string $uri)
     {
-        $factory = new Psr17Factory();
+        $factory = new HttpFactory();
         $wizard = new Wizard($factory, $factory);
         $form = $wizard->createForm($uri, $method);
         $this->assertInstanceOf(Form::class, $form);

@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Tests\Webclient\Helper\Form;
 
 use InvalidArgumentException;
-use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\StreamFactoryInterface;
+use Stuff\Webclient\Helper\Form\HttpFactory;
 use Webclient\Helper\Form\Form;
 
 use function dirname;
@@ -19,24 +17,6 @@ use function preg_match;
 
 class FormTest extends TestCase
 {
-
-    /**
-     * @var ResponseFactoryInterface
-     */
-    private $responseFactory;
-
-    /**
-     * @var StreamFactoryInterface
-     */
-    private $streamFactory;
-
-    public function setUp()
-    {
-        parent::setUp();
-        $factory = new Psr17Factory();
-        $this->responseFactory = $factory;
-        $this->streamFactory = $factory;
-    }
 
     /**
      * @param string $method
@@ -266,6 +246,7 @@ class FormTest extends TestCase
 
     private function getForm(string $uri, string $method): Form
     {
-        return new Form($this->responseFactory, $this->streamFactory, $uri, $method);
+        $factory = new HttpFactory();
+        return new Form($factory, $factory, $uri, $method);
     }
 }
